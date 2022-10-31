@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
-import com.example.newsapp.data.Article
+import com.example.newsapp.domain.models.ArticleDomain
 
-class ArticleAdapter : ListAdapter<Article, ArticleViewHolder>(DiffUtillCallback) {
+class ArticleAdapter : ListAdapter<ArticleDomain, ArticleViewHolder>(DiffUtillCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
         return ArticleViewHolder(view)

@@ -3,7 +3,7 @@ package com.example.newsapp.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Article(
+data class ArticleData(
     @SerializedName("author")
     val author: String,
     @SerializedName("content")
@@ -13,7 +13,7 @@ data class Article(
     @SerializedName("publishedAt")
     val publishedAt: String,
     @SerializedName("source")
-    val source: Source,
+    val source: SourceData,
     @SerializedName("title")
     val title: String,
     @SerializedName("url")
