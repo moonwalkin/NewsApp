@@ -4,14 +4,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 
+
+
+
 class MainActivity : AppCompatActivity(), Navigator {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
         if (savedInstanceState == null) {
            launch(NewsFragment(), false)
         }
+
+
+
+
     }
 
     private fun launch(fragment: Fragment, addToBackStack: Boolean) {
