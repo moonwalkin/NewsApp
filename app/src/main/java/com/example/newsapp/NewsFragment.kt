@@ -9,6 +9,10 @@ import androidx.fragment.app.Fragment
 
 class NewsFragment : Fragment() {
 
+    private val newsAdapter by lazy {
+        ArticleAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -19,10 +23,6 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val button = view.findViewById<TextView>(R.id.button)
-        button.setOnClickListener {
-            navigate().openArticle("Text string")
-        }
     }
 
 
