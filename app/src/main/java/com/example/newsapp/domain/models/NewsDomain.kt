@@ -1,11 +1,11 @@
-package com.example.newsapp.data
+package com.example.newsapp.domain.models
 
 
 import com.google.gson.annotations.SerializedName
 
-data class News(
+data class NewsDomain(
     @SerializedName("articles")
-    val articles: List<Article>,
+    val articles: List<ArticleDomain>,
     @SerializedName("status")
     val status: String,
     @SerializedName("totalResults")
