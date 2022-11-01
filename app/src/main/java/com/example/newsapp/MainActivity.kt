@@ -10,10 +10,16 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.domain.models.ArticleDomain
 
 
 class MainActivity : AppCompatActivity(), Navigator {
+
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
@@ -24,9 +30,8 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(findViewById(R.id.toolbar))
-
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
         if (savedInstanceState == null) {
            launch(NewsFragment(), false)
         }
