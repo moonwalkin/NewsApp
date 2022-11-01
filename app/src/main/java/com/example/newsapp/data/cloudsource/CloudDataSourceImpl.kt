@@ -1,5 +1,6 @@
-package com.example.newsapp.data
+package com.example.newsapp.data.cloudsource
 
+import com.example.newsapp.data.models.NewsData
 import com.example.newsapp.data.network.NewsService
 
 class CloudDataSourceImpl(
