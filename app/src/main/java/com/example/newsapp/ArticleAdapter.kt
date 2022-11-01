@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.example.newsapp.domain.models.ArticleDomain
 
-class ArticleAdapter : ListAdapter<ArticleDomain, ArticleViewHolder>(DiffUtillCallback) {
+class ArticleAdapter(
+    private val clickListener: ClickListener
+) : ListAdapter<ArticleDomain, ArticleViewHolder>(DiffUtillCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.news_item, parent, false)
         return ArticleViewHolder(view)
@@ -16,13 +18,20 @@ class ArticleAdapter : ListAdapter<ArticleDomain, ArticleViewHolder>(DiffUtillCa
         val item = getItem(position)
         holder.apply {
             item.apply {
-                tvSource.text = source.name
+                tvSource.text = source?.name
                 tvDate.text = publishedAt
                 tvTitle.text = title
                 tvDescription.text = description
                 Glide.with(view).load(urlToImage).into(ivPoster)
-            }
 
+            }
+            itemView.setOnClickListener {
+                clickListener.openPost(item)
+            }
         }
     }
+}
+
+interface ClickListener {
+    fun openPost(articleDomain: ArticleDomain)
 }

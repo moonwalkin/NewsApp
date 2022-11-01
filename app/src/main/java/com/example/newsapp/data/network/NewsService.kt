@@ -16,5 +16,5 @@ interface NewsService {
 suspend fun fetch(
     @Query("apiKey") apiKey: String = "0c1198243f494b6ca3a0e6f0444e7e1c",
     @Query("country") country: String = "ua"
-): NewsDomain
+): NewsData
 }

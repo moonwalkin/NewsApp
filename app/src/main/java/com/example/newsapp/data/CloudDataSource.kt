@@ -4,5 +4,5 @@ import com.example.newsapp.domain.models.NewsDomain
 
 interface CloudDataSource {
 
-    suspend fun fetch(): NewsDomain
+    suspend fun fetch(): NewsData
 }
