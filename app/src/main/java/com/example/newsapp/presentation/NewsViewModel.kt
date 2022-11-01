@@ -7,23 +7,23 @@ import androidx.lifecycle.viewModelScope
 import com.example.newsapp.data.CloudDataSourceImpl
 import com.example.newsapp.data.network.NewsFactory
 import com.example.newsapp.data.repository.NewsRepositoryImpl
-import com.example.newsapp.domain.NewsRepository
 import com.example.newsapp.domain.models.NewsDomain
 import kotlinx.coroutines.launch
 
 class NewsViewModel : ViewModel() {
-    val service = NewsFactory.retrofit
-    val cloudDataSource = CloudDataSourceImpl(service)
-    val repository = NewsRepositoryImpl(cloudDataSource)
+    private val service = NewsFactory.retrofit
+    private val cloudDataSource = CloudDataSourceImpl(service)
+    private val repository = NewsRepositoryImpl(cloudDataSource)
     private val _news = MutableLiveData<NewsDomain>()
-    val news: LiveData<NewsDomain> = _news
+    val news: LiveData<NewsDomain>
+        get() = _news
 
 
     init {
         fetch()
     }
 
-    fun fetch() = viewModelScope.launch {
-        _news.value = repository.fetchNews()
+    private fun fetch() = viewModelScope.launch {
+        _news.postValue(repository.fetchNews())
     }
 }
