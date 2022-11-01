@@ -18,6 +18,10 @@ class ArticleViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(
                 root.setOnClickListener {
                     clickListener.openPost(article)
                 }
+                root.setOnLongClickListener {
+                    clickListener.save(article)
+                    true
+                }
             }
         }
     }

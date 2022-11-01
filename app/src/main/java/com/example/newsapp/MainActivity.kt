@@ -2,6 +2,7 @@ package com.example.newsapp
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -10,14 +11,12 @@ import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.presentation.fragments.ArticleFragment
 import com.example.newsapp.presentation.fragments.NewsFragment
+import com.example.newsapp.presentation.fragments.SavedNewsFragment
+import com.example.newsapp.presentation.fragments.SearchFragment
 
 
 class MainActivity : AppCompatActivity(), Navigator {
-
-    private val binding by lazy {
-        ActivityMainBinding.inflate(layoutInflater)
-    }
-
+    private lateinit var binding: ActivityMainBinding
     private val fragmentListener = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentViewCreated(fm: FragmentManager, f: Fragment, v: View, savedInstanceState: Bundle?) {
             super.onFragmentViewCreated(fm, f, v, savedInstanceState)
@@ -28,7 +27,10 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
+
         setSupportActionBar(binding.toolbar)
         if (savedInstanceState == null) {
            launch(NewsFragment(), false)
@@ -37,7 +39,7 @@ class MainActivity : AppCompatActivity(), Navigator {
     }
 
 
-    override fun openArticle(article: ArticleDomain) {
+    override fun openArticlePage(article: ArticleDomain) {
         launch(ArticleFragment.newInstance(article), true)
     }
 
@@ -48,11 +50,6 @@ class MainActivity : AppCompatActivity(), Navigator {
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
-        return true
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        showNavigateUpButton()
         return true
     }
 
@@ -70,11 +67,31 @@ class MainActivity : AppCompatActivity(), Navigator {
         val container = R.id.fragment_container
         if (addToBackStack) {
             transaction.replace(container, fragment)
-                .addToBackStack(null)
+                .addToBackStack(fragment.javaClass.name)
         } else {
             transaction.add(container, fragment)
         }
         transaction.commit()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.search -> {
+                launch(SearchFragment(), true)
+                return true
+            }
+            R.id.favorite -> {
+                launch(SavedNewsFragment(), true)
+                return true
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
