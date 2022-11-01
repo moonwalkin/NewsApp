@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,8 @@ import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.newsapp.databinding.FragmentArticleBinding
-import com.example.newsapp.domain.models.ArticleDomain
+import com.example.newsapp.domain.entities.ArticleDomain
+import com.example.newsapp.navigate
 
 class ArticleFragment : Fragment() {
 

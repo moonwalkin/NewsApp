@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.presentation.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.newsapp.ArticleAdapter
+import com.example.newsapp.ClickListener
 import com.example.newsapp.databinding.FragmentNewsBinding
-import com.example.newsapp.domain.models.ArticleDomain
-import com.example.newsapp.presentation.NewsViewModel
+import com.example.newsapp.domain.entities.ArticleDomain
+import com.example.newsapp.navigate
+import com.example.newsapp.presentation.viewmodels.NewsViewModel
 
 class NewsFragment : Fragment() {
     private var _binding: FragmentNewsBinding? = null

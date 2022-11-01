@@ -1,9 +1,9 @@
 package com.example.newsapp.data.repository
 
-import com.example.newsapp.data.CloudDataSource
+import com.example.newsapp.data.cloudsource.CloudDataSource
 import com.example.newsapp.data.mapper.NewsMapper
 import com.example.newsapp.domain.NewsRepository
-import com.example.newsapp.domain.models.NewsDomain
+import com.example.newsapp.domain.entities.NewsDomain
 
 class NewsRepositoryImpl(
     private val cloudDataSource: CloudDataSource

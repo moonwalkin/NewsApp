@@ -1,8 +1,7 @@
 package com.example.newsapp
 
-import android.webkit.WebView
 import androidx.fragment.app.Fragment
-import com.example.newsapp.domain.models.ArticleDomain
+import com.example.newsapp.domain.entities.ArticleDomain
 
 interface Navigator {
 

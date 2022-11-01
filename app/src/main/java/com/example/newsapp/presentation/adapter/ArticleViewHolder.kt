@@ -1,12 +1,10 @@
-package com.example.newsapp
+package com.example.newsapp.presentation.adapter
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.newsapp.ClickListener
 import com.example.newsapp.databinding.NewsItemBinding
-import com.example.newsapp.domain.models.ArticleDomain
+import com.example.newsapp.domain.entities.ArticleDomain
 
 class ArticleViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(article: ArticleDomain, clickListener: ClickListener) {
