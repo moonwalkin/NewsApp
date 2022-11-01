@@ -1,36 +1,45 @@
 package com.example.newsapp
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.newsapp.databinding.FragmentArticleBinding
 import com.example.newsapp.domain.models.ArticleDomain
 
 class ArticleFragment : Fragment() {
 
+    private var _binding: FragmentArticleBinding? = null
+    private val binding: FragmentArticleBinding
+        get() = checkNotNull(_binding) { "FragmentArticleBinding == null" }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_article, container, false)
+    ): View {
+        _binding = FragmentArticleBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val webView = view.findViewById<WebView>(R.id.webView)
         val article = requireArguments().getParcelable<ArticleDomain>(ARTICLE)
-        webView.webViewClient = WebViewClient()
-        webView.loadUrl(article?.url!!)
-        handleOnBackPressed(webView)
+        binding.webView.apply {
+            webViewClient = WebViewClient()
+            loadUrl(article?.url!!)
+            handleOnBackPressed(this)
+        }
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
