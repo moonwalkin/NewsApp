@@ -7,4 +7,6 @@ interface CacheDataSource {
     fun getSavedNews(): LiveData<List<ArticleData>>
 
     suspend fun save(article: ArticleData)
+
+    suspend fun delete(article: ArticleData)
 }
