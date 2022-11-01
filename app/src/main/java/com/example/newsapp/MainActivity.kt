@@ -3,8 +3,7 @@ package com.example.newsapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-
-
+import com.example.newsapp.domain.models.ArticleDomain
 
 
 class MainActivity : AppCompatActivity(), Navigator {
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity(), Navigator {
         transaction.commit()
     }
 
-    override fun openArticle(article: String) {
+    override fun openArticle(article: ArticleDomain) {
         launch(ArticleFragment.newInstance(article), true)
     }
 }

@@ -8,12 +8,17 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.domain.models.ArticleDomain
 import com.example.newsapp.presentation.NewsViewModel
 
 class NewsFragment : Fragment() {
 
     private val newsAdapter by lazy {
-        ArticleAdapter()
+        ArticleAdapter(object : ClickListener {
+            override fun openPost(articleDomain: ArticleDomain) {
+                navigate().openArticle(articleDomain)
+            }
+        })
     }
 
     override fun onCreateView(
