@@ -5,10 +5,10 @@ import com.example.newsapp.domain.entities.ArticleDomain
 
 interface Navigator {
 
-    fun openArticle(article: ArticleDomain)
+    fun openArticlePage(article: ArticleDomain)
 
+    fun popBackStack() // add tag
 
-    fun popBackStack()
 }
 
 fun Fragment.navigate(): Navigator {

@@ -25,5 +25,7 @@ class ArticleAdapter(
 }
 
 interface ClickListener {
-    fun openPost(articleDomain: ArticleDomain)
+    fun openPost(article: ArticleDomain)
+
+    fun save(article: ArticleDomain)
 }
