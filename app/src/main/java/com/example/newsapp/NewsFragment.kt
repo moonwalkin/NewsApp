@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.RecyclerView
+import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.domain.models.ArticleDomain
 import com.example.newsapp.presentation.NewsViewModel
 
 class NewsFragment : Fragment() {
+    private var _binding: FragmentNewsBinding? = null
+    private val binding: FragmentNewsBinding
+        get() = checkNotNull(_binding) { "FragmentNewsBinding == null" }
 
     private val newsAdapter by lazy {
         ArticleAdapter(object : ClickListener {
@@ -26,18 +28,22 @@ class NewsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        _binding = FragmentNewsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.newsRecycler)
-        recyclerView.adapter = newsAdapter
         val viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
+        binding.newsRecycler.adapter = newsAdapter
         viewModel.news.observe(viewLifecycleOwner) {
             newsAdapter.submitList(it.articles)
         }
+    }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
