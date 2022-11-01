@@ -2,6 +2,8 @@ package com.example.newsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.newsapp.domain.models.ArticleDomain
 
@@ -15,11 +17,8 @@ class MainActivity : AppCompatActivity(), Navigator {
         if (savedInstanceState == null) {
            launch(NewsFragment(), false)
         }
-
-
-
-
     }
+
 
     private fun launch(fragment: Fragment, addToBackStack: Boolean) {
         val transaction = supportFragmentManager.beginTransaction()
@@ -36,4 +35,10 @@ class MainActivity : AppCompatActivity(), Navigator {
     override fun openArticle(article: ArticleDomain) {
         launch(ArticleFragment.newInstance(article), true)
     }
+
+    override fun popBackStack() {
+        supportFragmentManager.popBackStack()
+    }
+
 }
+
