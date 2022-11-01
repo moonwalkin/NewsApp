@@ -4,11 +4,23 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.newsapp.databinding.NewsItemBinding
+import com.example.newsapp.domain.models.ArticleDomain
 
-class ArticleViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-    val ivPoster = view.findViewById<ImageView>(R.id.ivPoster)
-    val tvSource = view.findViewById<TextView>(R.id.tvSource)
-    val tvDate = view.findViewById<TextView>(R.id.tvDate)
-    val tvTitle = view.findViewById<TextView>(R.id.tvTitle)
-    val tvDescription = view.findViewById<TextView>(R.id.tvDescription)
+class ArticleViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    fun bind(article: ArticleDomain, clickListener: ClickListener) {
+        binding.apply {
+            article.apply {
+                tvSource.text = source?.name
+                tvDate.text = publishedAt
+                tvTitle.text = title
+                tvDescription.text = description
+                Glide.with(root).load(urlToImage).into(ivPoster)
+                root.setOnClickListener {
+                    clickListener.openPost(article)
+                }
+            }
+        }
+    }
 }
