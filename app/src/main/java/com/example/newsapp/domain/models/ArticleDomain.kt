@@ -11,6 +11,6 @@ data class ArticleDomain(
     val publishedAt: String?,
     val source: SourceDomain?,
     val title: String?,
-    val url: String?,
+    val url: String,
     val urlToImage: String?
 ) : Parcelable

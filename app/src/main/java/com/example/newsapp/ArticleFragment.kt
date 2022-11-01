@@ -26,9 +26,9 @@ class ArticleFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val webView = view.findViewById<WebView>(R.id.webView)
+        val article = requireArguments().getParcelable<ArticleDomain>(ARTICLE)
         webView.webViewClient = WebViewClient()
-        val a = requireArguments().getParcelable<ArticleDomain>(ARTICLE)
-        webView.loadUrl(a?.url ?: "")
+        webView.loadUrl(article?.url!!)
         handleOnBackPressed(webView)
 
     }
