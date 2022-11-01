@@ -15,4 +15,8 @@ class CacheDataSourceImpl(
     override suspend fun save(article: ArticleData) {
         articleDao.save(article)
     }
+
+    override suspend fun delete(article: ArticleData) {
+        articleDao.delete(article)
+    }
 }

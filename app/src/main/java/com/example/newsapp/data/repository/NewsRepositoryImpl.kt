@@ -30,4 +30,8 @@ class NewsRepositoryImpl(
     override suspend fun save(articleDomain: ArticleDomain) {
         cacheDataSource.save(mapper.mapDomainToData(articleDomain))
     }
+
+    override suspend fun delete(articleDomain: ArticleDomain) {
+        cacheDataSource.delete(mapper.mapDomainToData(articleDomain))
+    }
 }

@@ -11,4 +11,6 @@ interface NewsRepository {
     fun getSavedNews(): LiveData<List<ArticleDomain>>
 
     suspend fun save(articleDomain: ArticleDomain)
+
+    suspend fun delete(articleDomain: ArticleDomain)
 }
