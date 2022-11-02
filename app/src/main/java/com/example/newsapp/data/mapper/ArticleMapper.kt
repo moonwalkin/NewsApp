@@ -4,8 +4,9 @@ import com.example.newsapp.data.models.ArticleData
 import com.example.newsapp.data.models.SourceData
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.domain.entities.SourceDomain
+import javax.inject.Inject
 
-class ArticleMapper {
+class ArticleMapper @Inject constructor(){
     fun mapDataToDomain(item: ArticleData): ArticleDomain {
         return ArticleDomain(
             author = item.author,
