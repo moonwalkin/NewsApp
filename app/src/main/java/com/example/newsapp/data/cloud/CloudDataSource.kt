@@ -1,4 +1,4 @@
-package com.example.newsapp.data.cloudsource
+package com.example.newsapp.data.cloud
 
 import com.example.newsapp.data.models.NewsData
 

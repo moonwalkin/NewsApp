@@ -1,11 +1,11 @@
-package com.example.newsapp.data.cloudsource
+package com.example.newsapp.data.cache
 
 import androidx.lifecycle.LiveData
-import com.example.newsapp.data.CacheDataSource
 import com.example.newsapp.data.database.ArticleDao
 import com.example.newsapp.data.models.ArticleData
+import javax.inject.Inject
 
-class CacheDataSourceImpl(
+class CacheDataSourceImpl @Inject constructor(
     private val articleDao: ArticleDao
 ) : CacheDataSource {
     override fun getSavedNews(): LiveData<List<ArticleData>> {
