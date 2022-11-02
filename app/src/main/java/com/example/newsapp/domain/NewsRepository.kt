@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.domain.entities.NewsDomain
 
+
 interface NewsRepository {
 
     suspend fun fetchNews(): NewsDomain
