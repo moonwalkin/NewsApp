@@ -1,26 +1,18 @@
 package com.example.newsapp.presentation.viewmodels
 
-import android.app.Application
 import androidx.lifecycle.*
-import com.example.newsapp.data.cloudsource.CacheDataSourceImpl
-import com.example.newsapp.data.cloudsource.CloudDataSourceImpl
-import com.example.newsapp.data.database.SavedArticleDatabase
-import com.example.newsapp.data.network.NewsFactory
-import com.example.newsapp.data.repository.NewsRepositoryImpl
-import com.example.newsapp.domain.GetNewsUseCase
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.domain.entities.NewsDomain
-import com.example.newsapp.domain.entities.SaveArticleUseCase
+import com.example.newsapp.domain.usecases.GetNewsUseCase
+import com.example.newsapp.domain.usecases.SaveArticleUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+import javax.inject.Provider
 
-class NewsViewModel(application: Application) : AndroidViewModel(application) {
-    private val service = NewsFactory.retrofit
-    private val cloudDataSource = CloudDataSourceImpl(service)
-    private val dao = SavedArticleDatabase.getInstance(application).articleDao()
-    private val cacheDataSource = CacheDataSourceImpl(dao)
-    private val repository = NewsRepositoryImpl(cloudDataSource, cacheDataSource)
-    private val useCase = GetNewsUseCase(repository)
-    private val saveNewsUseCase = SaveArticleUseCase(repository)
+class NewsViewModel @Inject constructor(
+    private val saveNewsUseCase: SaveArticleUseCase,
+    private val getNewsUseCase: GetNewsUseCase
+) : ViewModel() {
 
     private val _news = MutableLiveData<NewsDomain>()
     val news: LiveData<NewsDomain>
@@ -32,12 +24,20 @@ class NewsViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun fetch() = viewModelScope.launch {
-        _news.postValue(useCase())
+        _news.postValue(getNewsUseCase())
     }
 
     fun save(article: ArticleDomain) {
         viewModelScope.launch {
             saveNewsUseCase(article)
         }
+    }
+}
+
+class ViewModelFactory @Inject constructor(
+    private val viewModelProviders: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return viewModelProviders[modelClass]?.get() as T
     }
 }

@@ -1,4 +1,4 @@
-package com.example.newsapp.data
+package com.example.newsapp.data.cache
 
 import androidx.lifecycle.LiveData
 import com.example.newsapp.data.models.ArticleData
