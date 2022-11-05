@@ -27,7 +27,7 @@ class ArticleMapper @Inject constructor(){
             publishedAt = item.publishedAt!!,
             source = SourceData(item.source?.id ?: "", item.source?.name ?: ""),
             title = item.title!!,
-            url = item.url,
+            url = item.url!!,
             urlToImage = item.urlToImage!!
         )
     }

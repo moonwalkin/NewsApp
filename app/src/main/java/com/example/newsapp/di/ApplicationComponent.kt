@@ -7,6 +7,7 @@ import com.example.newsapp.presentation.fragments.SearchFragment
 import dagger.BindsInstance
 import dagger.Component
 
+@ApplicationScope
 @Component(
     modules = [
         DataModule::class,

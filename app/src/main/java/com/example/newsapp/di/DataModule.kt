@@ -22,18 +22,22 @@ import retrofit2.create
 interface DataModule {
 
     @Binds
+    @ApplicationScope
     fun bindCacheDataSource(impl: CacheDataSourceImpl): CacheDataSource
 
     @Binds
+    @ApplicationScope
     fun bindCloudDataSource(impl: CloudDataSourceImpl): CloudDataSource
 
     @Binds
+    @ApplicationScope
     fun bindNewsRepository(impl: NewsRepositoryImpl): NewsRepository
 
 
     companion object {
 
         @Provides
+        @ApplicationScope
         fun provideDao(application: Application): ArticleDao {
             return Room.databaseBuilder(
                 application,
@@ -45,6 +49,7 @@ interface DataModule {
         }
 
         @Provides
+        @ApplicationScope
         fun provideService(): NewsService {
             return Retrofit.Builder()
                 .baseUrl("https://newsapi.org/")

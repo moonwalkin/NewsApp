@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.App
-import com.example.newsapp.presentation.adapter.ArticleAdapter
-import com.example.newsapp.presentation.adapter.ClickListener
+import com.example.newsapp.ArticleAdapter
+import com.example.newsapp.ClickListener
 import com.example.newsapp.databinding.FragmentSavedNewsBinding
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.navigate

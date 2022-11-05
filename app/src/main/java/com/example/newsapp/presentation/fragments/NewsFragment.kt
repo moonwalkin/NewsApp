@@ -1,5 +1,6 @@
 package com.example.newsapp.presentation.fragments
 
+
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -33,8 +34,8 @@ class NewsFragment : Fragment() {
     }
     private val newsAdapter by lazy {
         ArticleAdapter(object : ClickListener {
-            override fun openPost(articleDomain: ArticleDomain) {
-                navigate().openArticlePage(articleDomain)
+            override fun openPost(article: ArticleDomain) {
+                navigate().openArticlePage(article)
             }
 
             override fun save(article: ArticleDomain) {
@@ -52,7 +53,7 @@ class NewsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding.root
     }
