@@ -9,7 +9,7 @@ import javax.inject.Inject
 class CloudDataSourceImpl @Inject constructor(
     private val apiService: NewsService
 ) : CloudDataSource {
-    override suspend fun fetch(page: Int, pageSize: Int): NewsData {
+    override suspend fun fetch(): NewsData {
         return apiService.fetch()
     }
 }

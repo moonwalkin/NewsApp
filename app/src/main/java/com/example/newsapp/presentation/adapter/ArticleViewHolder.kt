@@ -2,7 +2,6 @@ package com.example.newsapp.presentation.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.newsapp.ClickListener
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.domain.entities.ArticleDomain
 

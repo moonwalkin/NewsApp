@@ -4,5 +4,5 @@ import com.example.newsapp.data.models.NewsData
 
 interface CloudDataSource {
 
-    suspend fun fetch(page: Int = 1, pageSize: Int = 20): NewsData
+    suspend fun fetch(): NewsData
 }
