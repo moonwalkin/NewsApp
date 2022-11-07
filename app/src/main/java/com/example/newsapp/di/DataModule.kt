@@ -10,7 +10,7 @@ import com.example.newsapp.data.database.ArticleDao
 import com.example.newsapp.data.database.SavedArticleDatabase
 import com.example.newsapp.data.network.NewsService
 import com.example.newsapp.data.repository.NewsRepositoryImpl
-import com.example.newsapp.domain.NewsRepository
+import com.example.newsapp.domain.repository.NewsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -22,11 +22,9 @@ import retrofit2.create
 interface DataModule {
 
     @Binds
-    @ApplicationScope
     fun bindCacheDataSource(impl: CacheDataSourceImpl): CacheDataSource
 
     @Binds
-    @ApplicationScope
     fun bindCloudDataSource(impl: CloudDataSourceImpl): CloudDataSource
 
     @Binds
@@ -37,7 +35,6 @@ interface DataModule {
     companion object {
 
         @Provides
-        @ApplicationScope
         fun provideDao(application: Application): ArticleDao {
             return Room.databaseBuilder(
                 application,
@@ -49,7 +46,6 @@ interface DataModule {
         }
 
         @Provides
-        @ApplicationScope
         fun provideService(): NewsService {
             return Retrofit.Builder()
                 .baseUrl("https://newsapi.org/")
