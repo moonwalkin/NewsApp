@@ -27,5 +27,5 @@ class ArticleAdapter(
 interface ClickListener {
     fun openPost(article: ArticleDomain)
 
-    fun save(article: ArticleDomain)
+    fun save(article: ArticleDomain) = Unit
 }

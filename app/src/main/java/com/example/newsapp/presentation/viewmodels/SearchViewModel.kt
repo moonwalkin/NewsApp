@@ -17,9 +17,7 @@ class SearchViewModel @Inject constructor(private val getNewsByQueryUseCase: Get
     val news: LiveData<NewsDomain> = _news
 
      fun fetch(query: String) {
-         Log.d("TAG", "ASd")
         viewModelScope.launch {
-
                 _news.postValue(getNewsByQueryUseCase(query))
         }
     }

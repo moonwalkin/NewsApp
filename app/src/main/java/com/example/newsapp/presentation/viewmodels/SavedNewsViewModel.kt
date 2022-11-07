@@ -12,7 +12,7 @@ class SavedNewsViewModel @Inject constructor(
     private val getSavedNewsUseCase: GetSavedNewsUseCase,
     private val deleteUseCase: DeleteArticleUseCase
 ) : ViewModel() {
-    val _savedNews = getSavedNewsUseCase()
+    val savedNews = getSavedNewsUseCase()
 
     fun delete(article: ArticleDomain) {
         viewModelScope.launch {

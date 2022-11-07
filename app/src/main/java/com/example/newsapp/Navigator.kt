@@ -7,7 +7,7 @@ interface Navigator {
 
     fun openArticlePage(article: ArticleDomain)
 
-    fun popBackStack() // add tag
+    fun popBackStack()
 
 }
 

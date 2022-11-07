@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.newsapp.App
-import com.example.newsapp.ArticleAdapter
-import com.example.newsapp.ClickListener
+import com.example.newsapp.*
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.domain.entities.ArticleDomain
-import com.example.newsapp.navigate
 import com.example.newsapp.presentation.viewmodels.NewsViewModel
 import com.example.newsapp.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
@@ -60,16 +58,31 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
         binding.newsRecycler.adapter = newsAdapter
-        viewModel.news.observe(viewLifecycleOwner) {
-            newsAdapter.submitList(it.articles)
-        }
+        observeViewModel()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun observeViewModel() {
+        viewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
+        viewModel.news.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Results.Loading -> binding.progressBar.isVisible = true
+                is Results.Success -> {
+                    binding.progressBar.isVisible = false
+                    result.data?.articles.let {
+                        newsAdapter.submitList(it)
+                    }
+                }
+                is Results.Error -> {
+
+                }
+            }
+        }
     }
 
 

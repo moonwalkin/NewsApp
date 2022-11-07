@@ -10,6 +10,10 @@ class CloudDataSourceImpl @Inject constructor(
     private val apiService: NewsService
 ) : CloudDataSource {
     override suspend fun fetch(): NewsData {
-        return apiService.fetch()
+        return apiService.fetchTopNews()
+    }
+
+    override suspend fun fetchNewsByQuery(query: String): NewsData {
+        return apiService.fetchByQuery(query)
     }
 }

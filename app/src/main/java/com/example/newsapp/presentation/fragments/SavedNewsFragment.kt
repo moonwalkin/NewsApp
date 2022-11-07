@@ -64,7 +64,7 @@ class SavedNewsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.newsRecycler.adapter = newsAdapter
         val viewModel = ViewModelProvider(this, factory)[SavedNewsViewModel::class.java]
-        viewModel._savedNews.observe(viewLifecycleOwner) {
+        viewModel.savedNews.observe(viewLifecycleOwner) {
             newsAdapter.submitList(it)
         }
         val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
