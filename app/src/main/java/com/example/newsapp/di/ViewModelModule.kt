@@ -3,6 +3,7 @@ package com.example.newsapp.di
 import androidx.lifecycle.ViewModel
 import com.example.newsapp.presentation.viewmodels.NewsViewModel
 import com.example.newsapp.presentation.viewmodels.SavedNewsViewModel
+import com.example.newsapp.presentation.viewmodels.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -20,4 +21,10 @@ interface ViewModelModule {
     @Binds
     @ViewModelKey(SavedNewsViewModel::class)
     fun bindSavedNewsViewModel(viewModel: SavedNewsViewModel): ViewModel
+
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(SearchViewModel::class)
+    fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
 }
