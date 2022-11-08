@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.*
 import com.example.newsapp.databinding.FragmentNewsBinding
+import com.example.newsapp.domain.Results
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.presentation.viewmodels.NewsViewModel
 import com.example.newsapp.presentation.viewmodels.ViewModelFactory
@@ -68,18 +69,26 @@ class NewsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
+
         viewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
+
         viewModel.news.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Results.Loading -> binding.progressBar.isVisible = true
+                is Results.Loading -> {
+                    binding.tvError.isVisible = false
+                    binding.progressBar.isVisible = true
+                }
                 is Results.Success -> {
                     binding.progressBar.isVisible = false
+                    binding.tvError.isVisible = false
                     result.data?.articles.let {
                         newsAdapter.submitList(it)
                     }
                 }
                 is Results.Error -> {
-
+                    binding.newsRecycler.isVisible = false
+                    binding.progressBar.isVisible = false
+                    binding.tvError.isVisible = true
                 }
             }
         }

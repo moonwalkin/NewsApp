@@ -3,6 +3,7 @@ package com.example.newsapp.data.cloud
 import androidx.paging.PagingData
 import com.example.newsapp.data.models.NewsData
 import com.example.newsapp.data.network.NewsService
+import com.example.newsapp.domain.Results
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
