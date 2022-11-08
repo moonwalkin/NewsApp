@@ -23,7 +23,7 @@ import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class SearchFragment : Fragment() {
-
+    private lateinit var adapter: ArticleAdapter
     private var _binding: FragmentSearchNewsBinding? = null
     private val binding: FragmentSearchNewsBinding
         get() = checkNotNull(_binding) { "FragmentSearchNewsBinding == null" }
@@ -51,29 +51,45 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val vAdapter = ArticleAdapter(object : ClickListener {
+        setupRecyclerView()
+        observeViewModel()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun setupRecyclerView() {
+        adapter = ArticleAdapter(object : ClickListener {
             override fun openPost(article: ArticleDomain) {
                 navigate().openArticlePage(article)
             }
         })
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = vAdapter
+        binding.recyclerView.adapter = adapter
+    }
+
+
+    private fun observeViewModel() {
         val viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
-        val et = view.findViewById<EditText>(R.id.etSearch)
         viewModel.news.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Results.Loading -> binding.progressBar.isVisible = true
                 is Results.Success -> {
                     binding.progressBar.isVisible = false
                     result.data?.articles.let {
-                        vAdapter.submitList(it)
+                        adapter.submitList(it)
                     }
                 }
                 is Results.Error -> {
+                    binding.recyclerView.isVisible = false
+                    binding.progressBar.isVisible = false
+                    binding.tvError.isVisible = true
                 }
             }
         }
-        et.addTextChangedListener {
+        binding.etSearch.addTextChangedListener {
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 delay(1000)
                 if (it.toString().isNotEmpty()) {
@@ -82,10 +98,4 @@ class SearchFragment : Fragment() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }
