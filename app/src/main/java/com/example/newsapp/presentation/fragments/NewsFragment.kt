@@ -75,20 +75,26 @@ class NewsFragment : Fragment() {
         viewModel.news.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Results.Loading -> {
-                    binding.tvError.isVisible = false
-                    binding.progressBar.isVisible = true
+                    binding.apply {
+                        tvError.isVisible = false
+                        progressBar.isVisible = true
+                    }
                 }
                 is Results.Success -> {
-                    binding.progressBar.isVisible = false
-                    binding.tvError.isVisible = false
+                    binding.apply {
+                        progressBar.isVisible = false
+                        tvError.isVisible = false
+                    }
                     result.data?.articles.let {
                         newsAdapter.submitList(it)
                     }
                 }
                 is Results.Error -> {
-                    binding.newsRecycler.isVisible = false
-                    binding.progressBar.isVisible = false
-                    binding.tvError.isVisible = true
+                    binding.apply {
+                        newsRecycler.isVisible = false
+                        progressBar.isVisible = false
+                        tvError.isVisible = true
+                    }
                 }
             }
         }

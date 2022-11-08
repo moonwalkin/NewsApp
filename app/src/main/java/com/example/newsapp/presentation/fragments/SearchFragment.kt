@@ -66,8 +66,10 @@ class SearchFragment : Fragment() {
                 navigate().openArticlePage(article)
             }
         })
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = adapter
+        binding.apply {
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            recyclerView.adapter = adapter
+        }
     }
 
 
@@ -75,7 +77,12 @@ class SearchFragment : Fragment() {
         val viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
         viewModel.news.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Results.Loading -> binding.progressBar.isVisible = true
+                is Results.Loading -> {
+                    binding.apply {
+                        tvError.isVisible = false
+                        progressBar.isVisible = true
+                    }
+                }
                 is Results.Success -> {
                     binding.progressBar.isVisible = false
                     result.data?.articles.let {
@@ -83,9 +90,11 @@ class SearchFragment : Fragment() {
                     }
                 }
                 is Results.Error -> {
-                    binding.recyclerView.isVisible = false
-                    binding.progressBar.isVisible = false
-                    binding.tvError.isVisible = true
+                    binding.apply {
+                        recyclerView.isVisible = false
+                        progressBar.isVisible = false
+                        tvError.isVisible = true
+                    }
                 }
             }
         }
