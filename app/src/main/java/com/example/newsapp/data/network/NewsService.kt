@@ -1,7 +1,6 @@
 package com.example.newsapp.data.network
 
 import com.example.newsapp.data.models.NewsData
-import com.example.newsapp.domain.Results
 import retrofit2.http.GET
 import retrofit2.http.Query
 

@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.presentation
 
 import android.os.Bundle
 import android.view.Menu
@@ -7,6 +7,8 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.example.newsapp.Navigator
+import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.presentation.fragments.ArticleFragment
