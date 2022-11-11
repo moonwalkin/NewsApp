@@ -1,4 +1,4 @@
-package com.example.newsapp
+package com.example.newsapp.presentation
 
 import android.app.Application
 import com.example.newsapp.di.DaggerApplicationComponent

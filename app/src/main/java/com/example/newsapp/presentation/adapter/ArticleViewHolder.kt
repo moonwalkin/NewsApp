@@ -6,7 +6,7 @@ import com.example.newsapp.ClickListener
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.domain.entities.ArticleDomain
 
-class ArticleViewHolder(val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class ArticleViewHolder(private val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
     fun bind(article: ArticleDomain, clickListener: ClickListener) {
         binding.apply {
             article.apply {

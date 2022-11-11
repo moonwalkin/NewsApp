@@ -2,31 +2,28 @@ package com.example.newsapp.presentation.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.newsapp.*
+import com.example.newsapp.ArticleAdapter
+import com.example.newsapp.ClickListener
 import com.example.newsapp.databinding.FragmentSearchNewsBinding
 import com.example.newsapp.domain.Results
 import com.example.newsapp.domain.entities.ArticleDomain
-
+import com.example.newsapp.navigate
+import com.example.newsapp.presentation.App
+import com.example.newsapp.presentation.BaseFragment
 import com.example.newsapp.presentation.viewmodels.SearchViewModel
 import com.example.newsapp.presentation.viewmodels.ViewModelFactory
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
-class SearchFragment : Fragment() {
+class SearchFragment : BaseFragment<FragmentSearchNewsBinding>() {
+
     private lateinit var adapter: ArticleAdapter
-    private var _binding: FragmentSearchNewsBinding? = null
-    private val binding: FragmentSearchNewsBinding
-        get() = checkNotNull(_binding) { "FragmentSearchNewsBinding == null" }
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -40,25 +37,14 @@ class SearchFragment : Fragment() {
         super.onAttach(context)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSearchNewsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         observeViewModel()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
+    override fun getViewBinding() = FragmentSearchNewsBinding.inflate(layoutInflater)
 
     private fun setupRecyclerView() {
         adapter = ArticleAdapter(object : ClickListener {

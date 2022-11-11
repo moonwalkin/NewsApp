@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.ListAdapter
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.presentation.adapter.ArticleViewHolder
-import com.example.newsapp.presentation.adapter.DiffUtillCallback
+import com.example.newsapp.presentation.adapter.DiffUtilCallback
 
 class ArticleAdapter(
     private val clickListener: ClickListener
-) : ListAdapter<ArticleDomain, ArticleViewHolder>(DiffUtillCallback) {
+) : ListAdapter<ArticleDomain, ArticleViewHolder>(DiffUtilCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
