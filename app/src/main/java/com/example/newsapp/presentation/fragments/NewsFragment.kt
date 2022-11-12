@@ -59,14 +59,12 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
             when (result) {
                 is Results.Loading -> {
                     binding.apply {
-                        tvError.isVisible = false
-                        progressBar.isVisible = true
+                        showProgressBar(true)
                     }
                 }
                 is Results.Success -> {
                     binding.apply {
                         progressBar.isVisible = false
-                        tvError.isVisible = false
                     }
                     result.data?.articles.let {
                         newsAdapter.submitList(it)
@@ -75,13 +73,18 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
                 is Results.Error -> {
                     binding.apply {
                         newsRecycler.isVisible = false
-                        progressBar.isVisible = false
-                        tvError.isVisible = true
+                        showProgressBar(false)
                     }
                 }
             }
         }
     }
 
+    private fun showProgressBar(show: Boolean) {
+        binding.apply {
+            tvError.isVisible = !show
+            progressBar.isVisible = show
+        }
+    }
 
 }

@@ -65,8 +65,7 @@ class SearchFragment : BaseFragment<FragmentSearchNewsBinding>() {
             when (result) {
                 is Results.Loading -> {
                     binding.apply {
-                        tvError.isVisible = false
-                        progressBar.isVisible = true
+                        showProgressBar(true)
                     }
                 }
                 is Results.Success -> {
@@ -78,8 +77,7 @@ class SearchFragment : BaseFragment<FragmentSearchNewsBinding>() {
                 is Results.Error -> {
                     binding.apply {
                         recyclerView.isVisible = false
-                        progressBar.isVisible = false
-                        tvError.isVisible = true
+                       showProgressBar(false)
                     }
                 }
             }
@@ -91,6 +89,12 @@ class SearchFragment : BaseFragment<FragmentSearchNewsBinding>() {
                     viewModel.fetch(it.toString())
                 }
             }
+        }
+    }
+    private fun showProgressBar(show: Boolean) {
+        binding.apply {
+            tvError.isVisible = !show
+            progressBar.isVisible = show
         }
     }
 }
