@@ -10,6 +10,7 @@ import com.example.newsapp.*
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.domain.Results
 import com.example.newsapp.domain.entities.ArticleDomain
+import com.example.newsapp.domain.entities.NewsDomain
 import com.example.newsapp.presentation.App
 import com.example.newsapp.presentation.BaseFragment
 import com.example.newsapp.presentation.viewmodels.NewsViewModel
@@ -52,31 +53,9 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
     override fun getViewBinding() = FragmentNewsBinding.inflate(layoutInflater)
 
     private fun observeViewModel() {
-
         viewModel = ViewModelProvider(this, factory)[NewsViewModel::class.java]
-
         viewModel.news.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Results.Loading -> {
-                    binding.apply {
-                        showProgressBar(true)
-                    }
-                }
-                is Results.Success -> {
-                    binding.apply {
-                        progressBar.isVisible = false
-                    }
-                    result.data?.articles.let {
-                        newsAdapter.submitList(it)
-                    }
-                }
-                is Results.Error -> {
-                    binding.apply {
-                        newsRecycler.isVisible = false
-                        showProgressBar(false)
-                    }
-                }
-            }
+            render(result)
         }
     }
 
@@ -84,6 +63,27 @@ class NewsFragment : BaseFragment<FragmentNewsBinding>() {
         binding.apply {
             tvError.isVisible = !show
             progressBar.isVisible = show
+        }
+    }
+    private fun render(state: Results<NewsDomain>) {
+        when (state) {
+            is Results.Loading -> {
+                binding.apply {
+                    showProgressBar(true)
+                }
+            }
+            is Results.Success -> {
+                binding.progressBar.isVisible = false
+                state.data?.articles.let {
+                    newsAdapter.submitList(it)
+                }
+            }
+            is Results.Error -> {
+                binding.apply {
+                    newsRecycler.isVisible = false
+                    showProgressBar(false)
+                }
+            }
         }
     }
 

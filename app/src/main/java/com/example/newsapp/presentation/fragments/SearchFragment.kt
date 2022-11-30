@@ -13,6 +13,7 @@ import com.example.newsapp.ClickListener
 import com.example.newsapp.databinding.FragmentSearchNewsBinding
 import com.example.newsapp.domain.Results
 import com.example.newsapp.domain.entities.ArticleDomain
+import com.example.newsapp.domain.entities.NewsDomain
 import com.example.newsapp.navigate
 import com.example.newsapp.presentation.App
 import com.example.newsapp.presentation.BaseFragment
@@ -27,6 +28,8 @@ class SearchFragment : BaseFragment<FragmentSearchNewsBinding>() {
 
     @Inject
     lateinit var factory: ViewModelFactory
+
+    private lateinit var viewModel: SearchViewModel
 
     private val component by lazy {
         (requireActivity().application as App).component
@@ -60,28 +63,13 @@ class SearchFragment : BaseFragment<FragmentSearchNewsBinding>() {
 
 
     private fun observeViewModel() {
-        val viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[SearchViewModel::class.java]
         viewModel.news.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Results.Loading -> {
-                    binding.apply {
-                        showProgressBar(true)
-                    }
-                }
-                is Results.Success -> {
-                    binding.progressBar.isVisible = false
-                    result.data?.articles.let {
-                        adapter.submitList(it)
-                    }
-                }
-                is Results.Error -> {
-                    binding.apply {
-                        recyclerView.isVisible = false
-                       showProgressBar(false)
-                    }
-                }
-            }
+            render(result)
         }
+        listenTextChange()
+    }
+    private fun listenTextChange() {
         binding.etSearch.addTextChangedListener {
             viewLifecycleOwner.lifecycleScope.launchWhenResumed {
                 delay(1000)
@@ -91,10 +79,33 @@ class SearchFragment : BaseFragment<FragmentSearchNewsBinding>() {
             }
         }
     }
+
     private fun showProgressBar(show: Boolean) {
         binding.apply {
             tvError.isVisible = !show
             progressBar.isVisible = show
+        }
+    }
+
+    private fun render(state: Results<NewsDomain>) {
+        when (state) {
+            is Results.Loading -> {
+                binding.apply {
+                    showProgressBar(true)
+                }
+            }
+            is Results.Success -> {
+                binding.progressBar.isVisible = false
+                state.data?.articles.let {
+                    adapter.submitList(it)
+                }
+            }
+            is Results.Error -> {
+                binding.apply {
+                    recyclerView.isVisible = false
+                    showProgressBar(false)
+                }
+            }
         }
     }
 }
