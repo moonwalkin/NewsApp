@@ -1,6 +1,7 @@
 package com.example.newsapp.di
 
 import android.app.Application
+import com.example.newsapp.presentation.fragments.ArticleFragment
 import com.example.newsapp.presentation.fragments.NewsFragment
 import com.example.newsapp.presentation.fragments.SavedNewsFragment
 import com.example.newsapp.presentation.fragments.SearchFragment
@@ -19,6 +20,7 @@ interface ApplicationComponent {
     fun inject(fragment: SavedNewsFragment)
     fun inject(fragment: SearchFragment)
     fun inject(fragment: NewsFragment)
+    fun inject(fragment: ArticleFragment)
 
     @Component.Factory
     interface Factory {

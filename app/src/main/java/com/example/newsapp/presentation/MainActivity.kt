@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity(), Navigator {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater).also {
@@ -40,11 +39,9 @@ class MainActivity : AppCompatActivity(), Navigator {
         supportFragmentManager.registerFragmentLifecycleCallbacks(fragmentListener, false)
     }
 
-
     override fun openArticlePage(article: ArticleDomain) {
         launch(ArticleFragment.newInstance(article), true)
     }
-
 
     override fun popBackStack() {
         supportFragmentManager.popBackStack()
@@ -53,6 +50,26 @@ class MainActivity : AppCompatActivity(), Navigator {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.search -> {
+                launch(SearchFragment(), true)
+                return true
+            }
+            R.id.favorite -> {
+                launch(SavedNewsFragment(), true)
+                return true
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun showNavigateUpButton() {
@@ -74,26 +91,6 @@ class MainActivity : AppCompatActivity(), Navigator {
             transaction.add(container, fragment)
         }
         transaction.commit()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.search -> {
-                launch(SearchFragment(), true)
-                return true
-            }
-            R.id.favorite -> {
-                launch(SavedNewsFragment(), true)
-                return true
-            }
-
-        }
-        return super.onOptionsItemSelected(item)
     }
 
 }

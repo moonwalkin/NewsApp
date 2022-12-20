@@ -1,17 +1,14 @@
-package com.example.newsapp
+package com.example.newsapp.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.domain.entities.ArticleDomain
-import com.example.newsapp.presentation.adapter.ArticleViewHolder
-import com.example.newsapp.presentation.adapter.DiffUtilCallback
 
 class ArticleAdapter(
     private val clickListener: ClickListener
 ) : ListAdapter<ArticleDomain, ArticleViewHolder>(DiffUtilCallback) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
         val view = NewsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -25,7 +22,7 @@ class ArticleAdapter(
 }
 
 interface ClickListener {
-    fun openPost(article: ArticleDomain)
-
-    fun save(article: ArticleDomain) = Unit
+    fun click(article: ArticleDomain)
 }
+
+

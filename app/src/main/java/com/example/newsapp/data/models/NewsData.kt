@@ -1,13 +1,13 @@
 package com.example.newsapp.data.models
 
+import com.squareup.moshi.Json
 
-import com.google.gson.annotations.SerializedName
 
 data class NewsData(
-    @SerializedName("articles")
+    @Json(name = "articles")
     val articles: List<ArticleData>,
-    @SerializedName("status")
+    @Json(name = "status")
     val status: String,
-    @SerializedName("totalResults")
+    @Json(name = "totalResults")
     val totalResults: Int
 )

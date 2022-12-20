@@ -2,11 +2,12 @@ package com.example.newsapp.presentation.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.newsapp.ClickListener
+import com.example.newsapp.R
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.domain.entities.ArticleDomain
 
-class ArticleViewHolder(private val binding: NewsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+class ArticleViewHolder(private val binding: NewsItemBinding) :
+    RecyclerView.ViewHolder(binding.root) {
     fun bind(article: ArticleDomain, clickListener: ClickListener) {
         binding.apply {
             article.apply {
@@ -14,13 +15,13 @@ class ArticleViewHolder(private val binding: NewsItemBinding) : RecyclerView.Vie
                 tvDate.text = publishedAt
                 tvTitle.text = title
                 tvDescription.text = description
-                Glide.with(root).load(urlToImage).into(ivPoster)
+                Glide.with(root)
+                    .load(urlToImage)
+                    .placeholder(R.drawable.loading_animation)
+                    .error(R.drawable.ic_error)
+                    .into(ivPoster)
                 root.setOnClickListener {
-                    clickListener.openPost(article)
-                }
-                root.setOnLongClickListener {
-                    clickListener.save(article)
-                    true
+                    clickListener.click(article)
                 }
             }
         }

@@ -3,24 +3,25 @@ package com.example.newsapp.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+
 @Entity(tableName = "article_table")
 data class ArticleData(
-    @SerializedName("author")
-    val author: String?,
-    @SerializedName("content")
+    @Json(name = "content")
     val content: String?,
-    @SerializedName("description")
+    @Json(name = "author")
+    val author: String?,
+    @Json(name = "description")
     val description: String?,
-    @SerializedName("publishedAt")
+    @Json(name = "publishedAt")
     val publishedAt: String?,
-    @SerializedName("source")
+    @Json(name = "source")
     val source: SourceData?,
     @PrimaryKey
-    @SerializedName("title")
+    @Json(name = "title")
     val title: String,
-    @SerializedName("url")
+    @Json(name = "url")
     val url: String,
-    @SerializedName("urlToImage")
+    @Json(name = "urlToImage")
     val urlToImage: String?
 )

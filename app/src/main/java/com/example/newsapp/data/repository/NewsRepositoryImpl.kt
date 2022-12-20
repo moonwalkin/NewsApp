@@ -6,11 +6,11 @@ import com.example.newsapp.data.cache.CacheDataSource
 import com.example.newsapp.data.cloud.CloudDataSource
 import com.example.newsapp.data.mapper.ArticleMapper
 import com.example.newsapp.data.mapper.NewsMapper
-import com.example.newsapp.domain.Results
 import com.example.newsapp.domain.entities.ArticleDomain
 import com.example.newsapp.domain.entities.NewsDomain
 import com.example.newsapp.domain.repository.NewsRepository
 import javax.inject.Inject
+import com.example.newsapp.domain.Result
 
 
 class NewsRepositoryImpl @Inject constructor(
@@ -20,19 +20,20 @@ class NewsRepositoryImpl @Inject constructor(
     private val newsMapper: NewsMapper
 ) : NewsRepository {
 
-    override suspend fun fetchTopNews(): Results<NewsDomain> {
+
+    override suspend fun fetchTopNews(): Result<NewsDomain> {
         return try {
-            Results.Success(newsMapper.mapToDomain(cloudDataSource.fetch()))
+            Result.Success(newsMapper.mapToDomain(cloudDataSource.fetch()))
         } catch (e: Exception) {
-            Results.Error(e)
+            Result.Error(e)
         }
     }
 
-    override suspend fun fetchNewsByQuery(query: String): Results<NewsDomain> {
+    override suspend fun fetchNewsByQuery(query: String): Result<NewsDomain> {
         return try {
-            Results.Success(newsMapper.mapToDomain(cloudDataSource.fetchNewsByQuery(query)))
+            Result.Success(newsMapper.mapToDomain(cloudDataSource.fetchNewsByQuery(query)))
         } catch (e: Exception) {
-            Results.Error(e)
+            Result.Error(e)
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.newsapp.di
 
 import androidx.lifecycle.ViewModel
+import com.example.newsapp.presentation.viewmodels.ArticleViewModel
 import com.example.newsapp.presentation.viewmodels.NewsViewModel
 import com.example.newsapp.presentation.viewmodels.SavedNewsViewModel
 import com.example.newsapp.presentation.viewmodels.SearchViewModel
@@ -27,4 +28,10 @@ interface ViewModelModule {
     @Binds
     @ViewModelKey(SearchViewModel::class)
     fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
+
+
+    @IntoMap
+    @Binds
+    @ViewModelKey(ArticleViewModel::class)
+    fun bindArticleViewModel(viewModel: ArticleViewModel): ViewModel
 }

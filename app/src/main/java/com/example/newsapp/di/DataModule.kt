@@ -15,7 +15,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 
 @Module
@@ -45,11 +45,13 @@ interface DataModule {
                 .articleDao()
         }
 
+
+
         @Provides
         fun provideService(): NewsService {
             return Retrofit.Builder()
                 .baseUrl("https://newsapi.org/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create())
                 .build()
                 .create()
         }
